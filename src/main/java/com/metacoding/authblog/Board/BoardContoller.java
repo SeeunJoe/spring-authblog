@@ -3,6 +3,7 @@ package com.metacoding.authblog.Board;
 import com.metacoding.authblog.user.User;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -13,7 +14,8 @@ public class BoardContoller {
     private final HttpSession session;
 
     @GetMapping("/")
-    public String index(){
+    public String index(@AuthenticationPrincipal User user) {
+        System.out.println("로그인 : "+user.getUsername());
         return "index";
     }
 
@@ -21,10 +23,6 @@ public class BoardContoller {
     @GetMapping("/board/save-form")
     public String saveForm(){
 
-        User sessionUser = (User)session.getAttribute("sessionUser");
-        if(sessionUser == null){
-           throw new RuntimeException("인증이 되지 않음401");
-        }
         return "board/save-form";
     }
 }

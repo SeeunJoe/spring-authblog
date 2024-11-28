@@ -33,6 +33,13 @@ public class User implements UserDetails {
     @CreationTimestamp
     private Timestamp createdAt;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword(){
+        return password;
+    }
 
 
     // 사용자의 권한을 반환한다. -> user의 role..
@@ -44,23 +51,23 @@ public class User implements UserDetails {
     // 계정이 만료되지 않았는지 확인한다.-> olap....
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
     // 계정이 잠겨 있지 않은지 확인한다.
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return true;
     }
 
     // 인증 자격 증명(비밀번호 같은...)이 만료되지 않았는지 확인한다.
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     // 계정이 활성화 상태인지 확인한다.
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return true;
     }
 }
