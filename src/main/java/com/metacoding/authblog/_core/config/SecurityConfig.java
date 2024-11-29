@@ -1,11 +1,17 @@
 package com.metacoding.authblog._core.config;
 
+import com.metacoding.authblog.user.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 @Configuration
 public class SecurityConfig {
@@ -27,7 +33,25 @@ public class SecurityConfig {
                 .formLogin(f->
                         f.loginPage("/login-form")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/"));
+                                //.defaultSuccessUrl("/")
+                                .successHandler((request, response, authentication) -> {
+                                    User user = (User)authentication.getPrincipal();
+                                    HttpSession session = request.getSession();
+                                    session.setAttribute("sessionUser", user);
+                                    // 1
+                                    response.sendRedirect("/");
+
+/*    2                                response.setHeader("Location", "/");
+                                    response.setStatus(302);*/
+
+/*    3                                BufferedWriter bw = null;
+                                    bw.write("dfsd\n");
+                                    bw.flush();*/
+
+/*    4                                PrintWriter pw = response.getWriter();
+                                    pw.println("<script> location.href='/';</script>");*/
+                                })
+                );
 
         return http.build();
     }

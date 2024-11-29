@@ -14,15 +14,15 @@ public class BoardContoller {
     private final HttpSession session;
 
     @GetMapping("/")
-    public String index(@AuthenticationPrincipal User user) {
-        System.out.println("로그인 : "+user.getUsername());
+    public String index() {
+
         return "index";
     }
 
     // 인증이 필요한 페이지 -> 로그인만 되면 누구나 글 쓸 수 있음
-    @GetMapping("/board/save-form")
-    public String saveForm(){
-
+    @GetMapping("/s/board/save-form")
+    public String saveForm(@AuthenticationPrincipal User user){
+        System.out.println("로그인 : "+user.getUsername());
         return "board/save-form";
     }
 }

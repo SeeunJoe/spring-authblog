@@ -17,18 +17,12 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
 
-        // localhost:8080/board/hello
-        String path = req.getRequestURI();
+        User sessionUser = (User) session.getAttribute("SessionUser");
+        if(sessionUser == null) {
+            resp.sendRedirect("/login-form");
+        }else {
+            chain.doFilter(request, response);
+        }
 
-  //      Boolean isAuth = path.startsWith("/board");
-
-    //    if (isAuth) {
-            User sessionUser = (User) session.getAttribute("sessionuser");
-            if(sessionUser == null) {
-                resp.sendRedirect("/login-form");
-            }else {
-                chain.doFilter(request, response);
-            }
- //        }
     }
 }

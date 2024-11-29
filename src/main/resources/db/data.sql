@@ -1,2 +1,2 @@
-insert into user_tb(username,password, email, created_at) values('ssar','1234','ssar@nate.com',now());
-insert into user_tb(username,password, email, created_at) values('cos','1234','cos@nate.com',now());
+insert into user_tb(username,password, email, created_at) values('ssar','$2a$10$wcBNMS3NafnaD5N.ZaYEpOgcKxrdy.uXTPcP6AgtDIc4HXNJxr/YS','ssar@nate.com',now());
+insert into user_tb(username,password, email, created_at) values('cos','$2a$10$35xMqew9n.r98Sz1DmNl8OfwPUzPFxx5.RBbY.IfsQyoB1MbO3R6q','cos@nate.com',now());
